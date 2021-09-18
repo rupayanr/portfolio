@@ -1,0 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Marck+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+@layer base {
+    html {
+        @apply overflow-x-hidden
+    }
+
+    .bigtext {
+        @apply text-primary tracking-widest font-poppins text-big h-40
+    }
+}
