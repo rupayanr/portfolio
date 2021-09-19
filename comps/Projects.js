@@ -22,7 +22,7 @@ export default function Projects() {
 
 
     return (
-        <div className='flex flex-col  p-10 bg-primary'>
+        <div className='flex flex-col p-10 bg-primary'>
 
             {projects.map((item, key) => {
 

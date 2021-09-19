@@ -17,7 +17,7 @@ export default function Hero() {
         <>
             <Navbar />
             <div className='md:flex w-100% bg-primary md:h-big xs:flex-col '>
-                <div className=' p-10 md:ml-16 flex flex-col xs:w-full  md:w-2/3 justify-center md:items-start items-start'>
+                <div className=' p-10 md:p-4 md:ml-16 flex flex-col xs:w-full  md:w-2/3 justify-start md:items-start items-start'>
 
                     <p className='font-poppins text-primary-dark h-40 text-6xl md:text-mid lg:text-big'>
                         software
