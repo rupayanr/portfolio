@@ -1,20 +1,13 @@
-
-import arrow from '../public/Arrow.svg'
 import Image from 'next/image'
-import { useEffect } from 'react'
+import arrow from '../public/down.svg'
 import Navbar from './Navbar'
 import Footer from './Footer'
 import Projects from './Projects'
-import { ArrowDown, GitHub, Instagram, Linkedin, Twitter } from 'react-feather'
+
 
 export default function Hero() {
 
-    const socials = [
-        { icon: <GitHub color='#e5e5de' />, link: 'https://github.com/rupayanr' },
-        { icon: <Linkedin color='#e5e5de' />, link: 'https://www.linkedin.com/in/rupayan-roy/' },
-        // { icon: <Twitter color='#e5e5de' />, link: '' },
-        // { icon: <Instagram color='#e5e5de' /> },
-    ]
+
 
     const handleRedirect = (link) => {
         window.open(link)
@@ -23,36 +16,25 @@ export default function Hero() {
     return (
         <>
             <Navbar />
-            <div className='flex w-screen bg-primary'>
-                <div className='ml-10 flex flex-col w-2/3 '>
+            <div className='md:flex w-100% bg-primary md:h-big xs:flex-col '>
+                <div className=' p-10 md:ml-16 flex flex-col xs:w-full  md:w-2/3 justify-center md:items-start items-start'>
 
-                    <p className='font-poppins text-primary-dark text-big h-21'>
+                    <p className='font-poppins text-primary-dark h-40 text-6xl md:text-mid lg:text-big'>
                         software
                     </p>
 
-                    <p className='font-poppins text-primary-dark text-big h-25'>
+                    <p className='font-poppins text-primary-dark h-40 text-6xl md:text-mid lg:text-big'>
                         developer
                     </p>
 
-                </div>
-
-                <div className='flex flex-col justify-center items-center w-1/3'>
-                    <div className='flex flex-col justify-around items-center h-2/4 '>
-                        {socials.map((item, key) => {
-                            const { icon, link } = item
-
-                            return (<>
-                                <button onClick={() => handleRedirect(link)}>
-                                    {icon}
-                                </button>
-                            </>
-                            )
-                        })}
-                        <ArrowDown className='animate-bounce' color='#e5e5de' size={30} />
-                    </div>
-
 
                 </div>
+
+                <div className='flex xs:w-full  justify-center items-center'>
+                    <Image className='animate-bounce ' src={arrow} alt='arrow image' />
+                </div>
+
+
 
             </div>
 

@@ -11,6 +11,11 @@ module.exports = {
       pointer: 'crosshair'
     },
     extend: {
+
+      height: {
+        big: '40rem'
+      },
+
       colors: {
         primary: {
           DEFAULT: '#181818',
@@ -24,7 +29,8 @@ module.exports = {
       },
 
       fontSize: {
-        'big': '12rem'
+        'big': '12rem',
+        'mid': '8rem'
       },
 
 

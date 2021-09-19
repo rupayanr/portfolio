@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import Image from 'next/image'
 import cryptic from '../public/cryptic 2.svg'
 import aps from '../public/aps.svg'
@@ -6,30 +7,39 @@ export default function Projects() {
 
     const projects = [
 
-        { title: 'cryptic', type: 'chat system', svg: cryptic },
+        { title: 'cryptic', type: 'chat system', svg: cryptic, link: 'https://github.com/rupayanr/Cryptic' },
 
-        { title: 'passone', type: 'password manager', svg: cryptic },
+        { title: 'passone', type: 'password manager', svg: cryptic, link: 'https://github.com/rupayanr/Passone' },
 
-        { title: 'skillup', type: 'ed-tech portal', svg: cryptic },
+        { title: 'skillup', type: 'ed-tech portal', svg: cryptic, link: 'https://github.com/rupayanr/e-learning' },
 
-        { title: 'ikkatstore', type: 'e-commerce', svg: cryptic },
+        { title: 'ikkatstore', type: 'e-commerce', svg: cryptic, link: 'https://ikkatstore.com/' },
 
-        { title: 'associated power systems', type: 'landing page', svg: aps }
+        { title: 'associated power systems', type: 'landing page', svg: aps, link: 'https://associatedpowersystems.com/' }
 
     ]
+
+
 
     return (
         <div className='flex flex-col  p-10 bg-primary'>
 
             {projects.map((item, key) => {
 
-                const { title, type, svg } = item
+                const { title, type, svg, link } = item
 
                 return (
-                    <div className='flex flex-col m-10' key={key}>
-                        <p className='text-primary-dark font-poppins text-7xl'>
-                            {title}
-                        </p>
+                    <div className='flex flex-col m-5' key={key}>
+                        <button className='flex items-start'>
+
+                            <a href={link} target="_blank" rel="noreferrer">
+                                <p className='text-primary-dark font-poppins text-5xl md:text-8xl'>
+                                    {title}
+                                </p>
+                            </a>
+
+
+                        </button>
                         <p className='text-primary-dark font-poppins text-xl m-5 ml-2 italic' >
                             {type}
                         </p>

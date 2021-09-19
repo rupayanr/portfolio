@@ -11,6 +11,9 @@
         @apply overflow-x-hidden
     }
 
+    body{
+        @apply bg-primary
+    }
     .bigtext {
         @apply text-primary tracking-widest font-poppins text-big h-40
     }
