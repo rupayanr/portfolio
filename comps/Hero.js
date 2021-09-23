@@ -19,22 +19,19 @@ export default function Hero() {
             <div className='md:flex w-100% bg-primary md:h-30rem xs:flex-col items-center'>
                 <div className='h-96 p-10 md:ml-16 flex flex-col xs:w-full  md:w-2/3 justify-evenly md:items-start xs:items-center md:items-start'>
 
-                    <p className='font-poppins text-primary-dark h-30 text-7xl md:text-mid lg:text-big font-bold'>
-                        freelance
+                    <p className='font-poppins text-primary-dark h-30 text-7xl md:text-mid  font-bold'>
+                        Design.
                     </p>
 
-                    <p className='font-poppins text-primary-dark h-30 text-5xl md:text-8xl font-bold'>
-                        software developer
+                    <p className='font-poppins text-primary-dark h-30 text-7xl md:text-mid font-bold'>
+                        Develop.
+                    </p>
+                    <p className='font-poppins text-primary-dark h-30 text-7xl md:text-mid font-bold'>
+                        Collaborate.
                     </p>
 
 
                 </div>
-
-                <div className='flex xs:w-full  justify-center items-center'>
-                    <Image className='animate-bounce ' src={arrow} alt='arrow image' />
-                </div>
-
-
 
             </div>
 

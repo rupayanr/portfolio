@@ -15,7 +15,7 @@
         @apply bg-primary
     }
     .bigtext {
-        @apply text-primary tracking-widest font-poppins text-big 
+        @apply text-primary tracking-widest font-poppins text-7xl md:text-mid
     }
     .options-dark {
         @apply text-primary-dark tracking-widest font-poppins text-7xl 
