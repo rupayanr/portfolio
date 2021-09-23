@@ -15,7 +15,7 @@ export default function Navbar() {
             <div className='flex p-10'>
 
 
-                <p className='font-logotext xs:text-xl md:text-2xl text-primary-dark flex-1 tracking-widest z-10 md:ml-16 ml-2 '>
+                <p className='font-logotext xs:text-xl md:text-3xl text-primary-dark flex-1 tracking-widest z-10 md:ml-16 ml-2 '>
                     rupayan roy
 
 

@@ -24,11 +24,22 @@ export default function Hero() {
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 1 }}
+                        transition={{ delay: 0.7 }}
 
                         className='flex items-start justify-start  xs:h-26 md:h-30' >
                         <p className='font-poppins text-primary-dark h-30 text-6xl md:text-mid '>
-                            Designer.
+                            Designer
+                        </p>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 0.9 }}
+
+                        className='flex items-start justify-start  xs:h-26 md:h-30' >
+                        <p className='font-poppins text-primary-dark h-30 text-6xl md:text-mid '>
+                            Developer
                         </p>
                     </motion.div>
 
@@ -39,18 +50,7 @@ export default function Hero() {
 
                         className='flex items-start justify-start  xs:h-26 md:h-30' >
                         <p className='font-poppins text-primary-dark h-30 text-6xl md:text-mid '>
-                            Developer.
-                        </p>
-                    </motion.div>
-
-                    <motion.div
-                        initial={{ opacity: 0 }}
-                        animate={{ opacity: 1 }}
-                        transition={{ delay: 1 }}
-
-                        className='flex items-start justify-start  xs:h-26 md:h-30' >
-                        <p className='font-poppins text-primary-dark h-30 text-6xl md:text-mid '>
-                            Content Writer.
+                            Content Writer
                         </p>
                     </motion.div>
 

@@ -29,7 +29,7 @@ export default function Menu() {
                 <Link href='/'>
                     <a>
                         {/* <X className='text-primary mr-2' size={40} /> */}
-                        <h3 className='font-poppins-thin text-2xl text-primary tracking-widest z-10 mr-6' >
+                        <h3 className='font-logotext text-2xl text-primary tracking-widest z-10 mr-6' >
                             close
                         </h3>
                     </a>

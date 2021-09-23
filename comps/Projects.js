@@ -56,7 +56,7 @@ export default function Projects() {
 
 
                         </button>
-                        <p className='text-primary-dark font-logotext font-thin text-xl mt-5 italic tracking-widest' >
+                        <p className='text-gray-200 font-logotext font-thin text-xl mt-5 tracking-widest ml-2' >
                             {type}
                         </p>
                         <div className='w-76 mt-10 border-2 border-primary-dark z-10 p-4 flex flex-col justify-start'>
