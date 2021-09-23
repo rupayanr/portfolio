@@ -27,7 +27,7 @@ export default function Projects() {
 
 
     return (
-        <div className='flex flex-col p-10 bg-primary w-screen'>
+        <div className='flex flex-col p-10 md:ml-16 bg-primary w-screen md:w-4/5'>
 
             {projects.map((item, key) => {
 
