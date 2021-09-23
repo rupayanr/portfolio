@@ -1,11 +1,12 @@
 
 import '../styles/index.css'
+import { AnimatePresence } from 'framer-motion'
 
 function MyApp({ Component, pageProps }) {
   return (
-
-    <Component {...pageProps} />
-
+    <AnimatePresence exitBeforeEnter >
+      <Component {...pageProps} />
+    </AnimatePresence>
   )
 }
 

@@ -17,13 +17,12 @@ export default function Navbar() {
 
                 <p className='font-logotext xs:text-xl md:text-2xl text-primary-dark flex-1 tracking-widest z-10 md:ml-16 ml-2 '>
                     rupayan roy
-                    <br></br>
-                    developer
+
 
                 </p>
                 <Link href='/menu'>
                     <a>
-                        <h3 className=' font-poppins-thin xs:text-xl md:text-2xl text-primary-dark tracking-widest z-10  md:mr-2' >
+                        <h3 className=' font-logotext xs:text-xl md:text-2xl text-primary-dark tracking-widest z-10  md:mr-2' >
                             menu
                         </h3>
                         {/* <Menu className='text-primary-dark' size={30} /> */}

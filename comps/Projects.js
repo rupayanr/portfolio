@@ -6,21 +6,21 @@ import cryptic_mob from '../public/cryptic_mob.svg'
 import passone from '../public/passone.svg'
 import ikkat from '../public/ikkatHome.svg'
 import ikkat_alt from '../public/ikkat.svg'
-
+import { motion } from 'framer-motion'
 
 export default function Projects() {
 
     const projects = [
 
-        { title: 'cryptic', type: 'chat system', svg: cryptic_mob, link: 'https://github.com/rupayanr/Cryptic' },
+        { num: '1.', title: 'cryptic', type: 'chat system', svg: cryptic_mob, link: 'https://github.com/rupayanr/Cryptic' },
 
-        { title: 'passone', type: 'password manager', svg: passone, link: 'https://github.com/rupayanr/Passone' },
+        { num: '2.', title: 'passone', type: 'password manager', svg: passone, link: 'https://github.com/rupayanr/Passone' },
 
-        { title: 'skillup', type: 'ed-tech portal', svg: cryptic, link: 'https://github.com/rupayanr/e-learning' },
+        { num: '3.', title: 'skillup', type: 'ed-tech portal', svg: cryptic, link: 'https://github.com/rupayanr/e-learning' },
 
-        { title: 'ikkatstore', type: 'e-commerce', svg: ikkat, link: 'https://ikkatstore.com/' },
+        { num: '4.', title: 'ikkatstore', type: 'e-commerce', svg: ikkat_alt, link: 'https://ikkatstore.com/' },
 
-        { title: 'associated power systems', type: 'landing page', svg: aps, link: 'https://associatedpowersystems.com/' }
+        { num: '5.', title: 'associated power systems', type: 'landing page', svg: aps, link: 'https://associatedpowersystems.com/' }
 
     ]
 
@@ -28,52 +28,45 @@ export default function Projects() {
 
     return (
         <div className='flex flex-col p-10 md:ml-16 bg-primary w-screen md:w-4/5'>
+            <motion.div
 
+                initial={{ x: '-100vw' }}
+                animate={{ x: 0 }}
+                transition={{ ease: 'easeInOut', delay: 0.8, duration: 1 }}
+            >
+                <h3 className='  text-3xl tracking-widest  text-primary-dark font-logotext '>
+                    work
+                </h3>
+            </motion.div>
             {projects.map((item, key) => {
 
-                const { title, type, svg, link } = item
+                const { title, type, svg, link, num } = item
 
                 return (
 
-                    <div className='flex flex-col h-47rem w-full project-trigger' key={key}>
+                    <div className='flex flex-col h-auto w-full project-trigger mt-20' key={key} >
 
                         <button className='flex items-start'>
 
                             <a href={link} target="_blank" rel="noreferrer">
-                                <p className='text-primary-dark font-poppins text-5xl md:text-7xl text-left'>
+                                <p className='text-primary-dark font-poppins text-3xl md:text-6xl text-left'>
                                     {title}
                                 </p>
                             </a>
 
 
                         </button>
-                        <p className='text-primary-dark font-poppins text-xl mt-5 italic' >
+                        <p className='text-primary-dark font-logotext font-thin text-xl mt-5 italic tracking-widest' >
                             {type}
                         </p>
                         <div className='w-76 mt-10 border-2 border-primary-dark z-10 p-4 flex flex-col justify-start'>
                             <Image src={svg} alt='' />
                         </div>
 
-                        {/* <div className='flex m-5 p-10 flex-col h-96 items-center items-end justify-end project'>
-
-                            <div className='w-full border-2 border-primary-dark z-10 p-4 flex items-end justify-end' >
-
-                                <div className='w-full'>
-                                    <Image src={svg} alt='' />
-                                </div>
-                            </div>
-
-                        </div> */}
                     </div>
-
-
-
-
 
                 )
             })}
-
-
 
         </div >
     )

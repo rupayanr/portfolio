@@ -18,13 +18,13 @@ export default function about() {
                 <p className='font-logotext text-2xl text-primary-dark flex-1 tracking-widest z-10 ml-12'>
                     rupayan roy
                     <br></br>
-                    devfolio
+
 
                 </p>
                 <Link href='/'>
                     <a>
                         {/* <X className='text-primary mr-2' size={40} /> */}
-                        <h3 className='font-poppins-thin text-2xl text-primary-dark tracking-widest z-10 mr-2' >
+                        <h3 className='font-logotext text-2xl text-primary-dark tracking-widest z-10 mr-2' >
                             close
                         </h3>
                     </a>
@@ -55,7 +55,7 @@ export default function about() {
                         </p>
                     </div>
                     <div className='h-2/6 ml-5'>
-                        <p className='content'>
+                        <p className='content-italic'>
 
                             <ul className='list-disc'>
                                 <li>Landing page</li>

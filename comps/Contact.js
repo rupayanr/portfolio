@@ -8,7 +8,7 @@ export default function Contact() {
                     <p className='font-logotext text-2xl text-primary-dark flex-1 tracking-widest z-10 ml-12'>
                         rupayan roy
                         <br></br>
-                        devfolio
+
 
                     </p>
                 </div>
@@ -16,7 +16,7 @@ export default function Contact() {
                 <div className='p-10 flex flex-col justify-center'>
                     <div className='h-96'>
                         <p className='options-dark'>
-                            I'd love to listen to your ideas.
+                            I'd love to listen to your ideas & collaborate
                         </p>
                     </div>
                     <div>

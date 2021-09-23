@@ -1,10 +1,10 @@
-import { Smartphone, Mail, Feather } from "react-feather"
+import { Smartphone, Mail } from "react-feather"
 
 export default function Footer() {
     return (
         <div className='flex justify-between items-center bg-primary p-10 m-14'>
 
-            <div className>
+            <div className='flex items-center w-2/4 justify-start'>
                 <button onClick={() => { console.log('call me') }}>
                     <div className='flex items-center'>
 
@@ -15,7 +15,7 @@ export default function Footer() {
                 </button>
             </div>
 
-            <div className='flex items-center w-2/4  justify-center'>
+            <div className='flex items-center w-2/4 justify-center'>
                 <button>
                     <div className='flex items-center'>
 

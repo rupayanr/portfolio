@@ -20,17 +20,16 @@ export default function Menu() {
 
         <div className="w-screen h-screen bg-primary-dark flex-col overflow-hidden">
 
-            <div className='p-10 flex'>
+            <div className='p-10 h-28 flex'>
                 <p className='font-logotext text-2xl text-primary flex-1 tracking-widest z-10 ml-12'>
                     rupayan roy
-                    <br></br>
-                    devfolio
+
 
                 </p>
                 <Link href='/'>
                     <a>
                         {/* <X className='text-primary mr-2' size={40} /> */}
-                        <h3 className='font-poppins-thin text-2xl text-primary tracking-widest z-10 mr-2' >
+                        <h3 className='font-poppins-thin text-2xl text-primary tracking-widest z-10 mr-6' >
                             close
                         </h3>
                     </a>
@@ -40,7 +39,7 @@ export default function Menu() {
             <div className='flex' >
 
                 <div className='flex flex-col w-4/6 items-start ml-12 p-10'>
-                    <div className='flex items-center justify-center h-40 '>
+                    <div className='flex items-center justify-center h-40'>
                         <Link href='/'>
                             <a>
                                 <p className='bigtext'>

@@ -15,7 +15,7 @@
         @apply overflow-x-hidden bg-primary
     }
     .bigtext {
-        @apply text-primary tracking-widest font-poppins text-5xl md:text-mid
+        @apply text-primary tracking-widest font-poppins text-6xl md:text-mid
         
     }
     .options-dark {
@@ -23,8 +23,11 @@
     }
 
     .content{
-         @apply text-primary-dark tracking-wide font-poppins text-xl italic
+         @apply text-primary-dark tracking-wide font-poppins text-2xl 
     }
+    .content-italic{
+        @apply text-primary-dark tracking-wide font-poppins text-xl italic
+   }
 
     .bigtext:hover{
         @apply text-gray-400
