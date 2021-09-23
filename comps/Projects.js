@@ -35,7 +35,7 @@ export default function Projects() {
 
                 return (
 
-                    <div className='flex flex-col h-47rem w-full project-trigger' key={key} >
+                    <div className='flex flex-col h-47rem w-full project-trigger' key={key}>
 
                         <button className='flex items-start'>
 

@@ -18,17 +18,22 @@ export default function Hero() {
             <Navbar />
             <div className='md:flex w-100% bg-primary md:h-30rem xs:flex-col items-center'>
                 <div className='h-96 p-10 md:ml-16 flex flex-col xs:w-full  md:w-2/3 justify-evenly md:items-start xs:items-center md:items-start'>
+                    <div className='flex items-start justify-start h-40'>
+                        <p className='font-poppins text-primary-dark h-30 text-5xl md:text-mid font-bold'>
+                            App
+                        </p>
+                    </div>
 
-                    <p className='font-poppins text-primary-dark h-30 text-6xl md:text-mid  font-bold'>
-                        Design.
-                    </p>
-
-                    <p className='font-poppins text-primary-dark h-30 text-6xl md:text-mid font-bold'>
-                        Develop.
-                    </p>
-                    <p className='font-poppins text-primary-dark h-30 text-6xl md:text-mid font-bold'>
-                        Build.
-                    </p>
+                    <div className='flex items-start justify-start h-40'>
+                        <p className='font-poppins text-primary-dark h-30 text-5xl md:text-mid font-bold'>
+                            Design &
+                        </p>
+                    </div>
+                    <div className='flex items-start justify-start h-40'>
+                        <p className='font-poppins text-primary-dark h-30 text-5xl md:text-mid font-bold'>
+                            Development
+                        </p>
+                    </div>
 
 
                 </div>
