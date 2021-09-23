@@ -15,6 +15,17 @@
         @apply bg-primary
     }
     .bigtext {
-        @apply text-primary tracking-widest font-poppins text-big h-40
+        @apply text-primary tracking-widest font-poppins text-big 
+    }
+    .options-dark {
+        @apply text-primary-dark tracking-widest font-poppins text-7xl 
+    }
+
+    .content{
+         @apply text-primary-dark tracking-wide font-poppins text-xl italic
+    }
+
+    .bigtext:hover{
+        @apply text-gray-400
     }
 }

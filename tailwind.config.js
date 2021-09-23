@@ -13,7 +13,15 @@ module.exports = {
     extend: {
 
       height: {
-        big: '40rem'
+        '40rem': '40rem',
+        '30rem': '30rem',
+        '50rem': '50rem'
+      },
+
+      width: {
+        '40rem': '40rem',
+        '30rem': '30rem',
+        '50rem': '50rem'
       },
 
       colors: {
@@ -30,7 +38,8 @@ module.exports = {
 
       fontSize: {
         'big': '12rem',
-        'mid': '8rem'
+        'mid': '8rem',
+        '6rem': '6rem',
       },
 
 
@@ -68,7 +77,17 @@ module.exports = {
           left: '-8px'
 
 
-        }
+        },
+
+        '.project': {
+          display: 'none'
+        },
+
+        '.project-trigger:hover~.project': {
+          display: 'block',
+        },
+
+
       }
 
       addUtilities(newUtilities, ['responsive', 'hover'])

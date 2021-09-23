@@ -23,10 +23,10 @@ export default function Navbar() {
                     </p>
                     <Link href='/menu'>
                         <a>
-                            {/* <h3 className='cursor-pointer font-poppins-thin text-4xl text-primary-dark tracking-widest z-10'>
+                            <h3 className=' font-poppins-thin text-2xl text-primary-dark tracking-widest z-10 mr-2' >
                                 menu
-                            </h3> */}
-                            <Menu className='text-primary-dark' size={30} />
+                            </h3>
+                            {/* <Menu className='text-primary-dark' size={30} /> */}
                         </a>
                     </Link>
                 </>

@@ -2,30 +2,30 @@ import { Smartphone, Mail, Feather } from "react-feather"
 
 export default function Footer() {
     return (
-        <div className='flex justify-center items-center bg-primary'>
-            <div className='flex w-4/6 h-10'>
-                <div className='flex-1'>
-                    <button onClick={() => { console.log('call me') }}>
-                        <div className='flex items-center'>
+        <div className='flex justify-between items-center bg-primary p-10 m-14'>
 
-                            <Smartphone color='#e5e5de' size={20} />
-                            <p className='text-primary-dark text-xs italic font-poppins font-extrabold ml-2 tracking-widest'> (+91) - 9566211693</p>
+            <div className>
+                <button onClick={() => { console.log('call me') }}>
+                    <div className='flex items-center'>
 
-                        </div>
-                    </button>
-                </div>
+                        <Smartphone color='#e5e5de' size={20} />
+                        <p className='text-primary-dark text-2xs italic font-poppins font-extrabold ml-2 tracking-widest'> (+91) - 9566211693</p>
 
-                <div className='flex justify-items-end'>
-                    <button className='flex-1'>
-                        <div className='flex items-center'>
-
-                            <Mail color='#e5e5de' size={20} />
-                            <p className='text-primary-dark text-xs italic font-poppins font-extrabold ml-2 tracking-widest'>rupayan.roy21@gmail.com</p>
-
-                        </div>
-                    </button>
-                </div>
+                    </div>
+                </button>
             </div>
+
+            <div className='flex items-center w-2/4  justify-center'>
+                <button>
+                    <div className='flex items-center'>
+
+                        <Mail color='#e5e5de' size={20} />
+                        <p className='text-primary-dark text-2xs italic font-poppins font-extrabold ml-2 tracking-widest'>rupayan.roy21@gmail.com</p>
+
+                    </div>
+                </button>
+            </div>
+
         </div>
     )
 }

@@ -16,15 +16,15 @@ export default function Hero() {
     return (
         <>
             <Navbar />
-            <div className='md:flex w-100% bg-primary md:h-big xs:flex-col '>
-                <div className=' p-10 md:p-4 md:ml-16 flex flex-col xs:w-full  md:w-2/3 justify-start md:items-start items-start'>
+            <div className='md:flex w-100% bg-primary md:h-30rem xs:flex-col items-center'>
+                <div className='h-96 p-10 md:ml-16 flex flex-col xs:w-full  md:w-2/3 justify-evenly md:items-start xs:items-center md:items-start'>
 
-                    <p className='font-poppins text-primary-dark h-40 text-6xl md:text-mid lg:text-big'>
-                        software
+                    <p className='font-poppins text-primary-dark h-30 text-7xl md:text-mid lg:text-big font-bold'>
+                        freelance
                     </p>
 
-                    <p className='font-poppins text-primary-dark h-40 text-6xl md:text-mid lg:text-big'>
-                        developer
+                    <p className='font-poppins text-primary-dark h-30 text-5xl md:text-8xl font-bold'>
+                        software developer
                     </p>
 
 

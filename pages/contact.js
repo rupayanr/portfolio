@@ -1,9 +1,7 @@
-import React from 'react'
+import Contact from '../comps/Contact'
 
 export default function contact() {
     return (
-        <div>
-            <h2>Contac</h2>
-        </div>
+        <Contact />
     )
 }
