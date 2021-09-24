@@ -1,4 +1,5 @@
 import Link from 'next/link'
+import { motion } from 'framer-motion'
 
 export default function about() {
     const options = [
@@ -13,7 +14,11 @@ export default function about() {
 
 
     return (
-        <div className="w-screen h-4/5 bg-primary flex-col md:overflow-hidden">
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="w-screen h-4/5 bg-primary flex-col md:overflow-hidden">
             <div className='p-10 flex'>
                 <p className='font-logotext text-2xl text-primary-dark flex-1 tracking-widest z-10 md:ml-16 ml-2'>
                     rupayan roy
@@ -32,7 +37,11 @@ export default function about() {
 
             </div>
 
-            <div className='flex flex-col md:flex-row'>
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                transition={{ delay: 0.7 }}
+                className='flex flex-col md:flex-row'>
                 <div className='flex flex-col items-start justify-evenly h-40rem p-10 md:ml-12 -mt-12 w:full md:w-2/5'>
                     <Link href='/'>
                         <a>
@@ -42,14 +51,18 @@ export default function about() {
                         </a>
                     </Link>
 
-                    <div className='w-80 md:w-96 h-96 border-2 border-primary-dark z-10 p-4 flex items-end justify-end' >
+                    <div className='w-full md:w-96 h-96 border-2 border-primary-dark z-10 p-4 flex items-end justify-end' >
 
                     </div>
                 </div>
 
-                <div className='flex flex-col  items-start xs:justify-start md:justify-center p-10 xs:w-full md:w-2/4'>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }}
+                    className='flex flex-col  items-start xs:justify-start md:justify-center p-10 xs:w-full md:w-2/4'>
                     <div className='h-1/3'>
-                        <p className='content'>
+                        <p className='content xs:text-2xl '>
                             Hi netizen, I am <b>Rupayan Roy</b> a software developer from <b>India</b>. Services I provide:
 
                         </p>
@@ -80,10 +93,10 @@ export default function about() {
                         })}
                     </div>
 
-                </div>
+                </motion.div>
 
 
-            </div>
+            </motion.div>
 
 
             <div className='flex items-center justify-center w-full h-20 border-t-2 border-primary-dark' >
@@ -94,6 +107,6 @@ export default function about() {
                 </div>
 
             </div>
-        </div>
+        </motion.div>
     )
 }

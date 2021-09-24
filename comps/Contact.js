@@ -13,6 +13,15 @@ export default function Contact() {
 
                     </p>
 
+                    <Link href='/'>
+                        <a>
+                            {/* <X className='text-primary mr-2' size={40} /> */}
+                            <h3 className='font-logotext text-2xl text-primary-dark tracking-widest z-10 mr-2 md:hidden' >
+                                close
+                            </h3>
+                        </a>
+                    </Link>
+
                 </div>
 
 
@@ -66,7 +75,7 @@ export default function Contact() {
                     <Link href='/'>
                         <a>
                             {/* <X className='text-primary mr-2' size={40} /> */}
-                            <h3 className='font-poppins-thin text-2xl text-primary tracking-widest z-10 mr-2' >
+                            <h3 className='font-logotext text-2xl text-primary tracking-widest z-10 mr-2 hidden md:block' >
                                 close
                             </h3>
                         </a>
@@ -122,7 +131,7 @@ export default function Contact() {
 
                     </div>
 
-                    <div className='flex w-1/5 justify-between h-28'>
+                    <div className='flex w-1/5 justify-between h-20'>
 
                         <button>
                             <p className='font-poppins font-bold text-3xl text-primary tracking-widest'>

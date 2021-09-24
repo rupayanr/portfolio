@@ -99,7 +99,7 @@ export default function Menu() {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     transition={{ delay: 1.5 }}
-                    className='flex justify-around items-end w-96 p-10 h-60'>
+                    className='flex justify-around items-end w-96 p-10 h-44 -ml-4'>
                     {socials.map((item, key) => {
                         const { name, link } = item
 
