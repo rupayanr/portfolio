@@ -67,7 +67,7 @@ export default function about() {
 
                         </p>
                     </div>
-                    <div className='xs:h-48 md:h-40 ml-5 flex flex-col justify-around'>
+                    <div className='h-48 ml-5 flex flex-col justify-around'>
                         <p className='content-italic'>
 
                             <ul className='list-disc'>
@@ -98,15 +98,6 @@ export default function about() {
 
             </motion.div>
 
-
-            <div className='flex items-center justify-center w-full h-20 border-t-2 border-primary-dark' >
-                <div className='flex'>
-                    <h3 className='text-primary-dark font-logotext tracking-widest'>
-                        Copyright 2021 - Rupayan Roy
-                    </h3>
-                </div>
-
-            </div>
         </motion.div>
     )
 }
