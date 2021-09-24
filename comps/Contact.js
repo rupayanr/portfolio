@@ -1,45 +1,67 @@
 import Link from 'next/link'
-import { Mail } from 'react-feather'
+import { Mail, MapPin, Smartphone } from 'react-feather'
 export default function Contact() {
     return (
-        <div className='flex overflow-hidden'>
-            <div className='w-2/4 bg-primary h-screen p-10'>
-                <div>
-                    <p className='font-logotext text-2xl text-primary-dark flex-1 tracking-widest z-10 ml-12'>
-                        rupayan roy
-                        <br></br>
+        <div className='flex flex-col md:flex-row overflow-hidden'>
 
+            <div className='flex flex-col bg-primary w-full md:w-2/4 '>
+                <div className='flex p-10'>
+
+
+                    <p className='font-logotext text-2xl md:text-3xl text-primary-dark flex-1 tracking-widest z-10 md:ml-16 ml-2 '>
+                        rupayan roy
 
                     </p>
+
                 </div>
 
-                <div className='p-10 flex flex-col justify-center'>
-                    <div className='h-96'>
-                        <p className='options-dark'>
+
+                <div className='p-10 flex flex-col justify-center h-30rem '>
+                    <div className='h-72 mt-10'>
+                        <p className='options-dark text-4xl md:text-6xl'>
                             I'd love to listen to your ideas & collaborate
                         </p>
                     </div>
                     <div>
-                        <p className='text-primary-dark font-poppins text-xl '>
-                            Please fill the contact form or drop a mail.
+                        <p className='text-primary-dark font-poppins text-xl xs:mb-10 md:mb-4'>
+                            You can fill the form or hit me up
                         </p>
-                        <button>
-                            <div className='flex items-center mt-4'>
 
-                                <Mail color='#e5e5de' size={20} />
-                                <p className='text-primary-dark text-xs italic font-poppins font-extrabold ml-2 tracking-widest'>rupayan.roy21@gmail.com</p>
 
-                            </div>
-                        </button>
                     </div>
+                    <button>
+                        <div className='flex items-center mt-4'>
+
+                            <Mail color='#e5e5de' size={20} />
+                            <p className='text-primary-dark text-xs italic font-poppins font-extrabold ml-2 tracking-widest'>rupayan.roy21@gmail.com</p>
+
+                        </div>
+                    </button>
+                    <button>
+                        <div className='flex items-center mt-4'>
+
+                            <Smartphone color='#e5e5de' size={20} />
+                            <p className='text-primary-dark text-xs italic font-poppins font-extrabold ml-2 tracking-widest'>+ 91 - 9566211693</p>
+
+                        </div>
+                    </button>
+                    <button>
+                        <div className='flex items-center mt-4'>
+
+                            <MapPin color='#e5e5de' size={20} />
+                            <p className='text-primary-dark text-xs italic font-poppins font-extrabold ml-2 tracking-widest'>Chandigarh, India</p>
+
+                        </div>
+                    </button>
+
+
 
                 </div>
-
             </div>
 
 
 
-            <div className='w-2/4 bg-primary-dark h-screen'>
+            <div className=' xs:w-full md:w-2/4 bg-primary-dark h-screen'>
                 <div className='flex justify-end p-10'>
                     <Link href='/'>
                         <a>
@@ -51,43 +73,37 @@ export default function Contact() {
                     </Link>
                 </div>
 
-                <div className='flex flex-col p-10'>
+                <div className='flex flex-col p-10 bg-primary-dark h-screen'>
                     <h3 className='bg-primary-dark font-poppins font-bold text-4xl text-left h-20'>
                         Contact Me
                     </h3>
 
-                    <div className='flex w-full justify-between h-28'>
-                        <div className='flex flex-col w-5/12'>
+                    <div className='flex w-full justify-between h-30 flex-col md:flex-row '>
+                        <div className='flex flex-col w-full '>
                             <h3 className='font-poppins font-bold text-md tracking-widest'>
-                                FIRST NAME
+                                FUll NAME
                             </h3>
-                            <input className='h-10 mt-4'>
+                            <input className='h-10 mb-4 mt-4'>
                             </input>
                         </div>
 
-                        <div className='flex flex-col w-5/12'>
-                            <h3 className='font-poppins font-bold text-md tracking-widest'>
-                                LAST NAME
-                            </h3>
-                            <input className='h-10 mt-4'>
-                            </input>
-                        </div>
+
                     </div>
 
-                    <div className='flex w-full justify-between h-28'>
-                        <div className='flex flex-col w-5/12'>
+                    <div className='flex w-full justify-between xs:h-48 md:h-30 flex-col md:flex-row'>
+                        <div className='flex flex-col w-full md:w-5/12'>
                             <h3 className='font-poppins font-bold text-md tracking-widest'>
                                 EMAIL
                             </h3>
-                            <input className='h-10 mt-4'>
+                            <input className='h-10 mb-4 mt-4'>
                             </input>
                         </div>
 
-                        <div className='flex flex-col w-5/12 '>
+                        <div className='flex flex-col w-full md:w-5/12'>
                             <h3 className='font-poppins font-bold text-md tracking-widest'>
                                 PHONE NUMBER
                             </h3>
-                            <input className='h-10 mt-4'>
+                            <input className='h-10  mb-4 mt-4'>
                             </input>
                         </div>
 
@@ -95,10 +111,10 @@ export default function Contact() {
 
 
                     </div>
-                    <div className='flex w-full justify-between h-32'>
+                    <div className='flex w-full justify-between h-48 flex-col md:flex-row mt-4'>
                         <div className='flex flex-col w-full'>
                             <h3 className='font-poppins font-bold text-md tracking-widest'>
-                                Message
+                                MESSAGE
                             </h3>
                             <input className='h-28 mt-4'>
                             </input>
@@ -109,7 +125,7 @@ export default function Contact() {
                     <div className='flex w-1/5 justify-between h-28'>
 
                         <button>
-                            <p className='font-poppins-thin text-2xl text-primary tracking-widest'>
+                            <p className='font-poppins font-bold text-3xl text-primary tracking-widest'>
                                 Submit
                             </p>
 

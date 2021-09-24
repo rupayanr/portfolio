@@ -7,12 +7,13 @@ import passone from '../public/passone.svg'
 import ikkat from '../public/ikkatHome.svg'
 import ikkat_alt from '../public/ikkat.svg'
 import { motion } from 'framer-motion'
+import { useState, useEffect } from 'react'
 
 export default function Projects() {
 
     const projects = [
 
-        { num: '1.', title: 'cryptic', type: 'chat system', svg: cryptic_mob, link: 'https://github.com/rupayanr/Cryptic' },
+        { num: '1.', title: 'cryptic', type: 'chat system', svg: cryptic, link: 'https://github.com/rupayanr/Cryptic' },
 
         { num: '2.', title: 'passone', type: 'password manager', svg: passone, link: 'https://github.com/rupayanr/Passone' },
 
@@ -24,17 +25,48 @@ export default function Projects() {
 
     ]
 
+    const [show, setShow] = useState(false)
+
+    const [lastYPos, setLastYPos] = useState(20)
+
+    useEffect(() => {
+
+        const handleScroll = () => {
+            const yPos = window.scrollY;
+            const isScrollingDown = yPos > lastYPos
+
+
+            if (yPos < 200) {
+                setShow(false)
+            }
+            else {
+                setShow(true)
+            }
+            setLastYPos(yPos)
+        }
+
+        window.addEventListener('scroll', handleScroll, false)
+
+        return () => {
+            window.addEventListener('scroll', handleScroll, false)
+        }
+
+    }, [lastYPos])
 
 
     return (
-        <div className='flex flex-col p-10 md:ml-16 bg-primary w-screen md:w-4/5'>
+        <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className='flex flex-col p-10 md:ml-16 bg-primary w-screen md:w-4/5'>
             <motion.div
 
                 initial={{ x: '-100vw' }}
                 animate={{ x: 0 }}
                 transition={{ ease: 'easeInOut', delay: 0.8, duration: 1 }}
             >
-                <h3 className='  text-3xl tracking-widest  text-primary-dark font-logotext '>
+                <h3 className='text-4xl tracking-widest  text-primary-dark font-logotext '>
                     work
                 </h3>
             </motion.div>
@@ -44,30 +76,35 @@ export default function Projects() {
 
                 return (
 
-                    <div className='flex flex-col h-auto w-full project-trigger mt-20' key={key} >
+                    <motion.div
+                        initial={{ x: '-100vw' }}
+                        animate={{ x: show ? 0 : '-100vw' }}
+                        transition={{ ease: 'easeInOut', duration: 0.7, staggerChildren: 0.5 }}
+
+                        className='flex flex-col h-auto w-full project-trigger mt-20' key={key} >
 
                         <button className='flex items-start'>
 
                             <a href={link} target="_blank" rel="noreferrer">
-                                <p className='text-primary-dark font-poppins text-3xl md:text-6xl text-left'>
+                                <p className='text-primary-dark font-poppins text-4xl md:text-6xl text-left'>
                                     {title}
                                 </p>
                             </a>
 
 
                         </button>
-                        <p className='text-gray-200 font-logotext font-thin text-xl mt-5 tracking-widest ml-2' >
+                        <p className='text-gray-200 font-logotext font-thin text-xl mt-5 tracking-widest ml-2 mb-10' >
                             {type}
                         </p>
-                        <div className='w-76 mt-10 border-2 border-primary-dark z-10 p-4 flex flex-col justify-start'>
-                            <Image src={svg} alt='' />
-                        </div>
+                        {/* <div className='w-auto mt-10 border-2 border-primary-dark z-10 p-4 flex flex-col justify-start'> */}
+                        <Image src={svg} alt='' />
+                        {/* </div> */}
 
-                    </div>
+                    </motion.div>
 
                 )
             })}
 
-        </div >
+        </motion.div >
     )
 }

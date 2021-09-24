@@ -46,6 +46,10 @@ module.exports = {
         '6rem': '6rem',
       },
 
+      letterSpacing: {
+        prettywide: '0.8em'
+      },
+
 
 
     },

@@ -15,11 +15,14 @@
         @apply overflow-x-hidden bg-primary
     }
     .bigtext {
-        @apply text-primary tracking-widest font-poppins text-6xl md:text-mid
+        @apply text-primary tracking-widest font-poppins text-6xl md:text-mid font-bold
         
     }
     .options-dark {
-        @apply text-primary-dark tracking-widest font-poppins text-7xl 
+        @apply text-primary-dark tracking-widest font-poppins text-6xl 
+    }
+    .options-dark-xs {
+        @apply text-primary-dark tracking-widest font-poppins text-4xl 
     }
 
     .content{

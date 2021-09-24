@@ -19,7 +19,7 @@ export default function Hero() {
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}>
             <Navbar />
-            <div className='md:flex w-100% bg-primary h-auto xs:flex-col items-center mt-10'>
+            <div className='md:flex w-100% bg-primary h-auto xs:flex-col items-center mt-10 font-bold xs:tracking-widest  md:tracking-prettywide'>
                 <div className=' h-96 md:h-30rem p-10 md:ml-16 flex flex-col xs:w-full  md:w-2/3 justify-around md:items-start xs:items-center '>
                     <motion.div
                         initial={{ opacity: 0 }}
@@ -46,11 +46,11 @@ export default function Hero() {
                     <motion.div
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
-                        transition={{ delay: 1 }}
+                        transition={{ delay: 1.1 }}
 
                         className='flex items-start justify-start  xs:h-26 md:h-30' >
                         <p className='font-poppins text-primary-dark h-30 text-6xl md:text-mid '>
-                            Content Writer
+                            Blogger
                         </p>
                     </motion.div>
 
