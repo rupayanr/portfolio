@@ -1,11 +1,19 @@
 import Link from 'next/link'
 import { Mail, MapPin, Smartphone } from 'react-feather'
+import { motion } from 'framer-motion'
+
+
+
 export default function Contact() {
     return (
         <div className='flex flex-col md:flex-row overflow-hidden'>
 
             <div className='flex flex-col bg-primary w-full md:w-2/4 '>
-                <div className='flex p-10'>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className='flex p-10'>
 
 
                     <p className='font-logotext text-2xl md:text-3xl text-primary-dark flex-1 tracking-widest z-10 md:ml-16 ml-2 '>
@@ -22,10 +30,13 @@ export default function Contact() {
                         </a>
                     </Link>
 
-                </div>
+                </motion.div>
 
 
-                <div className='p-10 flex flex-col justify-center h-30rem '>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1 }} className='p-10 flex flex-col justify-center h-30rem '>
                     <div className='h-72 mt-10'>
                         <p className='options-dark text-4xl md:text-6xl'>
                             I'd love to listen to your ideas & collaborate
@@ -65,13 +76,17 @@ export default function Contact() {
 
 
 
-                </div>
+                </motion.div>
             </div>
 
 
 
             <div className=' xs:w-full md:w-2/4 bg-primary-dark h-screen'>
-                <div className='flex justify-end p-10'>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 0.5 }}
+                    className='flex justify-end p-10'>
                     <Link href='/'>
                         <a>
                             {/* <X className='text-primary mr-2' size={40} /> */}
@@ -80,10 +95,13 @@ export default function Contact() {
                             </h3>
                         </a>
                     </Link>
-                </div>
+                </motion.div>
 
-                <div className='flex flex-col p-10 bg-primary-dark h-screen'>
-                    <h3 className='bg-primary-dark font-poppins font-bold text-4xl text-left h-20'>
+                <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.5, staggerChildren: 0.5 }} className='flex flex-col p-10 bg-primary-dark h-screen'>
+                    <h3 className='bg-primary-dark font-poppins font-bold text-5xl text-left h-20'>
                         Contact Me
                     </h3>
 
@@ -142,8 +160,9 @@ export default function Contact() {
 
                     </div>
 
-                </div>
+                </motion.div>
             </div>
         </div>
+
     )
 }

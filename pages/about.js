@@ -18,7 +18,7 @@ export default function about() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 0.5 }}
-            className="w-screen h-4/5 bg-primary flex-col md:overflow-hidden">
+            className="w-screen h-3/5 bg-primary flex-col md:overflow-hidden">
             <div className='p-10 flex'>
                 <p className='font-logotext text-2xl text-primary-dark flex-1 tracking-widest z-10 md:ml-16 ml-2'>
                     rupayan roy
@@ -62,12 +62,12 @@ export default function about() {
                     transition={{ delay: 1 }}
                     className='flex flex-col  items-start xs:justify-start md:justify-center p-10 xs:w-full md:w-2/4'>
                     <div className='h-1/3'>
-                        <p className='content xs:text-2xl '>
+                        <p className='content xs:text-2xl md:text-4xl'>
                             Hi netizen, I am <b>Rupayan Roy</b> a software developer from <b>India</b>. Services I provide:
 
                         </p>
                     </div>
-                    <div className='h-48 ml-5 flex flex-col justify-around'>
+                    <div className='xs:h-48 md:h-40 ml-5 flex flex-col justify-around'>
                         <p className='content-italic'>
 
                             <ul className='list-disc'>
