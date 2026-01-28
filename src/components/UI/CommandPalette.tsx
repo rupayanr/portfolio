@@ -19,26 +19,34 @@ export function CommandPalette({ isOpen, onClose, onCommandSelect }: CommandPale
     c.label.toLowerCase().includes(search.toLowerCase())
   )
 
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     if (isOpen) {
       setSearch('')
       setSelectedIndex(0)
-      setTimeout(() => inputRef.current?.focus(), 100)
+      const timer = setTimeout(() => inputRef.current?.focus(), 100)
+      return () => clearTimeout(timer)
     }
   }, [isOpen])
 
   useEffect(() => {
     setSelectedIndex(0)
   }, [search])
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (filteredCommands.length === 0) {
+      if (e.key === 'Escape') onClose()
+      return
+    }
+
     if (e.key === 'ArrowDown') {
       e.preventDefault()
       setSelectedIndex(i => (i + 1) % filteredCommands.length)
     } else if (e.key === 'ArrowUp') {
       e.preventDefault()
       setSelectedIndex(i => (i - 1 + filteredCommands.length) % filteredCommands.length)
-    } else if (e.key === 'Enter' && filteredCommands.length > 0) {
+    } else if (e.key === 'Enter') {
       e.preventDefault()
       onCommandSelect(filteredCommands[selectedIndex].cmd)
       onClose()

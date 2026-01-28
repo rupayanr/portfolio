@@ -1,8 +1,9 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 
 export function useTypingEffect(text: string, speed: number = 50, startDelay: number = 0) {
   const [displayedText, setDisplayedText] = useState('')
   const [isComplete, setIsComplete] = useState(false)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     setDisplayedText('')
@@ -10,20 +11,27 @@ export function useTypingEffect(text: string, speed: number = 50, startDelay: nu
 
     const startTimeout = setTimeout(() => {
       let currentIndex = 0
-      const interval = setInterval(() => {
+      intervalRef.current = setInterval(() => {
         if (currentIndex < text.length) {
           setDisplayedText(text.slice(0, currentIndex + 1))
           currentIndex++
         } else {
           setIsComplete(true)
-          clearInterval(interval)
+          if (intervalRef.current) {
+            clearInterval(intervalRef.current)
+            intervalRef.current = null
+          }
         }
       }, speed)
-
-      return () => clearInterval(interval)
     }, startDelay)
 
-    return () => clearTimeout(startTimeout)
+    return () => {
+      clearTimeout(startTimeout)
+      if (intervalRef.current) {
+        clearInterval(intervalRef.current)
+        intervalRef.current = null
+      }
+    }
   }, [text, speed, startDelay])
 
   return { displayedText, isComplete }

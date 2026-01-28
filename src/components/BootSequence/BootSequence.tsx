@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 
 interface BootSequenceProps {
@@ -35,9 +35,9 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
     }
   }, [currentLine, onComplete])
 
-  const handleSkip = () => {
+  const handleSkip = useCallback(() => {
     onComplete()
-  }
+  }, [onComplete])
 
   useEffect(() => {
     const handleKeyDown = () => handleSkip()
@@ -50,7 +50,7 @@ export function BootSequence({ onComplete }: BootSequenceProps) {
       window.removeEventListener('keydown', handleKeyDown)
       window.removeEventListener('click', handleClick)
     }
-  }, [])
+  }, [handleSkip])
 
   return (
     <AnimatePresence>

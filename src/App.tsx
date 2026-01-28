@@ -52,6 +52,7 @@ function HomePage() {
       })
       setHasShownWelcome(true)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [showBoot, hasShownWelcome, setHasShownWelcome, terminal.addOutput])
 
   useEffect(() => {

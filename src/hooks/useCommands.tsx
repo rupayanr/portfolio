@@ -3,6 +3,7 @@ import { useTheme } from '../context/ThemeContext'
 import { themes } from '../themes'
 import { skillNames } from '../data/skills'
 import { commandList } from '../data/commands'
+import { copyToClipboard, downloadResume, EMAIL } from '../utils/clipboard'
 import type { CommandOutput } from '../types'
 
 interface UseCommandsProps {
@@ -303,21 +304,19 @@ export function useCommands({ addOutput, clearOutputs, addToast }: UseCommandsPr
         break
 
       case 'email':
-        navigator.clipboard.writeText('rupayan.roy16@gmail.com')
-        addOutput({
-          id: generateId(),
-          command: input,
-          output: '✓ Copied rupayan.roy16@gmail.com',
-          type: 'success',
+        copyToClipboard(EMAIL).then(success => {
+          addOutput({
+            id: generateId(),
+            command: input,
+            output: success ? `✓ Copied ${EMAIL}` : '✗ Failed to copy email',
+            type: success ? 'success' : 'error',
+          })
+          addToast(success ? 'Email copied!' : 'Failed to copy', success ? 'success' : 'error')
         })
-        addToast('Email copied!', 'success')
         break
 
       case 'resume':
-        const link = document.createElement('a')
-        link.href = '/resume.pdf'
-        link.download = 'rupayan-roy-resume.pdf'
-        link.click()
+        downloadResume()
         addOutput({
           id: generateId(),
           command: input,

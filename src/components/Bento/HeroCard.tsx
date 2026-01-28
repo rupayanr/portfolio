@@ -1,10 +1,11 @@
 import { Github, Linkedin, Mail } from 'lucide-react'
 import { BentoCard } from './BentoCard'
 import { ASCII_FULL_NAME, ASCII_INITIALS } from '../../assets/ascii'
+import { copyToClipboard, EMAIL } from '../../utils/clipboard'
 
 export function HeroCard() {
   const handleCopyEmail = () => {
-    navigator.clipboard.writeText('rupayan.roy16@gmail.com')
+    copyToClipboard(EMAIL)
   }
 
   return (

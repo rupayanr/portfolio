@@ -1,21 +1,19 @@
 import { Copy, Download } from 'lucide-react'
 import { BentoCard } from './BentoCard'
+import { copyToClipboard, downloadResume, EMAIL } from '../../utils/clipboard'
 
 interface ContactCardProps {
   addToast: (message: string, type: 'success' | 'info' | 'error') => void
 }
 
 export function ContactCard({ addToast }: ContactCardProps) {
-  const handleCopyEmail = () => {
-    navigator.clipboard.writeText('rupayan.roy16@gmail.com')
-    addToast('Email copied!', 'success')
+  const handleCopyEmail = async () => {
+    const success = await copyToClipboard(EMAIL)
+    addToast(success ? 'Email copied!' : 'Failed to copy email', success ? 'success' : 'error')
   }
 
   const handleDownloadResume = () => {
-    const link = document.createElement('a')
-    link.href = '/resume.pdf'
-    link.download = 'rupayan-roy-resume.pdf'
-    link.click()
+    downloadResume()
     addToast('Downloading resume...', 'info')
   }
 
