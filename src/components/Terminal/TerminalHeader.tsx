@@ -10,10 +10,9 @@ export function TerminalHeader() {
         <span className="w-2.5 h-2.5 sm:w-3 sm:h-3 rounded-full bg-[#27ca40]" />
       </div>
 
-      {/* Title - shortened on mobile */}
+      {/* Title */}
       <span className="text-[var(--text-dim)] text-xs sm:text-sm font-mono">
-        <span className="hidden sm:inline">rupayan@portfolio:~</span>
-        <span className="sm:hidden">~/portfolio</span>
+        rupayan@portfolio:~
       </span>
 
       {/* Theme picker */}
