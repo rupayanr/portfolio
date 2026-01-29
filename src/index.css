@@ -108,6 +108,19 @@ body {
   box-shadow: 0 0 30px -5px var(--accent);
 }
 
+/* Focus ring for keyboard accessibility */
+*:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Reduced motion */
 @media (prefers-reduced-motion: reduce) {
   * {
