@@ -11,7 +11,7 @@ interface BentoGridProps {
 
 export function BentoGrid({ addToast }: BentoGridProps) {
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8 pb-32 md:pb-48">
+    <div className="max-w-6xl mx-auto px-4 py-8 pb-40 md:pb-56">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         {/* Hero - spans 2 columns */}
         <HeroCard />
