@@ -25,12 +25,4 @@ export const projects: Project[] = [
     github: 'https://github.com/rupayanr/cribinfo',
     status: 'coming-soon',
   },
-  {
-    name: 'gitwho',
-    description: 'CLI tool for git contributor stats',
-    tech: ['TypeScript', 'Node.js', 'Commander'],
-    npm: 'https://npmjs.com/package/gitwho',
-    github: 'https://github.com/rupayanr/gitwho',
-    status: 'coming-soon',
-  },
 ]
