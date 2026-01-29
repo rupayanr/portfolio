@@ -24,13 +24,13 @@ export function ThemePicker() {
     <div className="relative" ref={dropdownRef}>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-[var(--bg)] border border-[var(--border)] rounded-md text-sm hover:border-[var(--accent)] transition-colors"
+        className="flex items-center gap-1.5 sm:gap-2 px-2 sm:px-3 py-1 sm:py-1.5 bg-[var(--bg)] border border-[var(--border)] rounded-md text-sm hover:border-[var(--accent)] transition-colors"
       >
         <span
           className="w-3 h-3 rounded-full"
           style={{ backgroundColor: theme.colors.accent }}
         />
-        <span className="text-[var(--text)]">{theme.name}</span>
+        <span className="hidden sm:inline text-[var(--text)]">{theme.name}</span>
         <ChevronDown size={14} className="text-[var(--text-dim)]" />
       </button>
 
