@@ -10,21 +10,21 @@ export function HeroCard() {
 
   return (
     <BentoCard command="whoami" className="md:col-span-2" id="hero">
-      {/* Desktop ASCII - Full Name */}
+      {/* Desktop/Tablet ASCII - Full Name */}
       <pre
-        className="hidden md:block text-xs leading-tight whitespace-pre overflow-x-auto cursor-default ascii-glow"
+        className="hidden sm:block text-xs leading-tight whitespace-pre overflow-x-auto cursor-default ascii-glow"
       >
         {ASCII_FULL_NAME}
       </pre>
 
       {/* Mobile ASCII - Initials */}
-      <pre className="md:hidden text-[var(--accent)] text-xs leading-tight whitespace-pre">
+      <pre className="sm:hidden text-[var(--accent)] text-xs leading-tight whitespace-pre">
         {ASCII_INITIALS}
       </pre>
-      <h1 className="md:hidden text-xl font-bold mt-2 text-[var(--text)]">Rupayan Roy</h1>
+      <h1 className="sm:hidden text-xl font-bold mt-2 text-[var(--text)]">Rupayan Roy</h1>
 
       <div className="mt-4 space-y-2">
-        <div className="hidden md:flex items-center gap-2">
+        <div className="hidden sm:flex items-center gap-2">
           <span className="text-[var(--text)]">Rupayan Roy</span>
         </div>
         <p className="text-[var(--text-dim)]">Senior Software Engineer</p>
