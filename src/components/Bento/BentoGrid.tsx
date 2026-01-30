@@ -1,7 +1,6 @@
 import { motion } from 'framer-motion'
 import { HeroCard } from './HeroCard'
 import { SkillsCard } from './SkillsCard'
-import { AmbientCard } from './AmbientCard'
 import { ProjectCard } from './ProjectCard'
 import { ContactCard } from './ContactCard'
 import { projects } from '../../data/projects'
@@ -19,9 +18,6 @@ export function BentoGrid({ addToast }: BentoGridProps) {
 
         {/* Skills */}
         <SkillsCard />
-
-        {/* Ambient Player */}
-        <AmbientCard />
 
         {/* Projects header */}
         <motion.div
