@@ -3,7 +3,6 @@ import { BentoCard } from './BentoCard'
 import { ASCII_FULL_NAME, ASCII_INITIALS } from '../../assets/ascii'
 import { copyToClipboard, EMAIL } from '../../utils/clipboard'
 import { useAvailability } from '../../context/AvailabilityContext'
-import { MiniPlayer } from '../UI/MiniPlayer'
 
 export function HeroCard() {
   const { statusLabel, statusColor } = useAvailability()
@@ -44,37 +43,32 @@ export function HeroCard() {
         <p className="text-[var(--text-dim)]">Senior Software Engineer</p>
         <p className="text-[var(--text-dim)]">6 years building stuff</p>
 
-        <div className="flex items-center justify-between mt-4 gap-3">
-          <div className="flex gap-2">
-            <a
-              href="https://github.com/rupayanr"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-[var(--bg)] border border-[var(--border)] rounded-md hover:border-[var(--accent)] transition-colors"
-              aria-label="GitHub"
-            >
-              <Github size={18} />
-            </a>
-            <a
-              href="https://linkedin.com/in/rupayan-roy"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="p-2 bg-[var(--bg)] border border-[var(--border)] rounded-md hover:border-[var(--accent)] transition-colors"
-              aria-label="LinkedIn"
-            >
-              <Linkedin size={18} />
-            </a>
-            <button
-              onClick={handleCopyEmail}
-              className="p-2 bg-[var(--bg)] border border-[var(--border)] rounded-md hover:border-[var(--accent)] transition-colors"
-              aria-label="Copy email"
-            >
-              <Mail size={18} />
-            </button>
-          </div>
-
-          {/* Mini ambient player */}
-          <MiniPlayer />
+        <div className="flex gap-3 mt-4">
+          <a
+            href="https://github.com/rupayanr"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 bg-[var(--bg)] border border-[var(--border)] rounded-md hover:border-[var(--accent)] transition-colors"
+            aria-label="GitHub"
+          >
+            <Github size={18} />
+          </a>
+          <a
+            href="https://linkedin.com/in/rupayan-roy"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="p-2 bg-[var(--bg)] border border-[var(--border)] rounded-md hover:border-[var(--accent)] transition-colors"
+            aria-label="LinkedIn"
+          >
+            <Linkedin size={18} />
+          </a>
+          <button
+            onClick={handleCopyEmail}
+            className="p-2 bg-[var(--bg)] border border-[var(--border)] rounded-md hover:border-[var(--accent)] transition-colors"
+            aria-label="Copy email"
+          >
+            <Mail size={18} />
+          </button>
         </div>
       </div>
     </BentoCard>

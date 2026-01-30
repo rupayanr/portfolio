@@ -1,30 +1,11 @@
 import { createContext, useContext, useEffect, useState, useRef, useCallback } from 'react'
 import type { ReactNode } from 'react'
 
-export interface AmbientTrack {
-  id: string
-  name: string
-  file: string
-}
-
-export const AMBIENT_TRACKS: AmbientTrack[] = [
-  { id: 'serenity', name: 'Serenity', file: '/sounds/ambient/serenity.ogg' },
-  { id: 'voltaic', name: 'Voltaic', file: '/sounds/ambient/voltaic.ogg' },
-  { id: 'space', name: 'Space', file: '/sounds/ambient/space-music.ogg' },
-  { id: 'coldsleep', name: 'Coldsleep', file: '/sounds/ambient/coldsleep.ogg' },
-]
-
 interface SoundContextType {
   isMuted: boolean
-  isPlaying: boolean
   setMuted: (muted: boolean) => void
   toggleMute: () => void
   playTyping: () => void
-  currentTrack: number
-  tracks: AmbientTrack[]
-  nextTrack: () => void
-  prevTrack: () => void
-  setTrack: (index: number) => void
 }
 
 const SoundContext = createContext<SoundContextType | undefined>(undefined)
@@ -34,12 +15,6 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     const saved = localStorage.getItem('soundMuted')
     return saved === 'true'
   })
-  const [currentTrack, setCurrentTrack] = useState(() => {
-    const saved = localStorage.getItem('ambientTrack')
-    const index = saved ? parseInt(saved, 10) : 0
-    return isNaN(index) ? 0 : index
-  })
-  const [isPlaying, setIsPlaying] = useState(false)
 
   const typingAudioRef = useRef<HTMLAudioElement | null>(null)
   const ambientAudioRef = useRef<HTMLAudioElement | null>(null)
@@ -47,7 +22,6 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   const hasInteracted = useRef(false)
 
   useEffect(() => {
-    // Check for reduced motion preference
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     prefersReducedMotion.current = mediaQuery.matches
 
@@ -55,7 +29,6 @@ export function SoundProvider({ children }: { children: ReactNode }) {
       prefersReducedMotion.current = e.matches
       if (e.matches && ambientAudioRef.current) {
         ambientAudioRef.current.pause()
-        setIsPlaying(false)
       }
     }
 
@@ -64,53 +37,29 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   }, [])
 
   useEffect(() => {
-    // Initialize typing audio
     typingAudioRef.current = new Audio('/sounds/typing.wav')
     typingAudioRef.current.volume = 0.3
 
-    return () => {
-      typingAudioRef.current = null
-    }
-  }, [])
-
-  // Initialize and switch ambient tracks
-  useEffect(() => {
-    const track = AMBIENT_TRACKS[currentTrack]
-    const wasPlaying = ambientAudioRef.current && !ambientAudioRef.current.paused
-
-    // Pause current track
-    if (ambientAudioRef.current) {
-      ambientAudioRef.current.pause()
-    }
-
-    // Create new audio element
-    ambientAudioRef.current = new Audio(track.file)
+    ambientAudioRef.current = new Audio('/sounds/ambient.ogg')
     ambientAudioRef.current.volume = 0.2
     ambientAudioRef.current.loop = true
-
-    // Resume playing if it was playing before
-    if ((wasPlaying || (hasInteracted.current && !isMuted)) && !prefersReducedMotion.current) {
-      ambientAudioRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false))
-    }
-
-    localStorage.setItem('ambientTrack', String(currentTrack))
 
     return () => {
       if (ambientAudioRef.current) {
         ambientAudioRef.current.pause()
         ambientAudioRef.current = null
       }
+      typingAudioRef.current = null
     }
-  }, [currentTrack, isMuted])
+  }, [])
 
-  // Start ambient sound on first user interaction
   useEffect(() => {
     const startAmbient = () => {
       if (hasInteracted.current) return
       hasInteracted.current = true
 
       if (!isMuted && !prefersReducedMotion.current && ambientAudioRef.current) {
-        ambientAudioRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false))
+        ambientAudioRef.current.play().catch(() => {})
       }
 
       document.removeEventListener('click', startAmbient)
@@ -134,9 +83,8 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     if (ambientAudioRef.current) {
       if (isMuted) {
         ambientAudioRef.current.pause()
-        setIsPlaying(false)
       } else if (hasInteracted.current) {
-        ambientAudioRef.current.play().then(() => setIsPlaying(true)).catch(() => setIsPlaying(false))
+        ambientAudioRef.current.play().catch(() => {})
       }
     }
   }, [isMuted])
@@ -160,33 +108,8 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     }
   }, [isMuted])
 
-  const nextTrack = useCallback(() => {
-    setCurrentTrack(prev => (prev + 1) % AMBIENT_TRACKS.length)
-  }, [])
-
-  const prevTrack = useCallback(() => {
-    setCurrentTrack(prev => (prev - 1 + AMBIENT_TRACKS.length) % AMBIENT_TRACKS.length)
-  }, [])
-
-  const setTrack = useCallback((index: number) => {
-    if (index >= 0 && index < AMBIENT_TRACKS.length) {
-      setCurrentTrack(index)
-    }
-  }, [])
-
   return (
-    <SoundContext.Provider value={{
-      isMuted,
-      isPlaying,
-      setMuted,
-      toggleMute,
-      playTyping,
-      currentTrack,
-      tracks: AMBIENT_TRACKS,
-      nextTrack,
-      prevTrack,
-      setTrack,
-    }}>
+    <SoundContext.Provider value={{ isMuted, setMuted, toggleMute, playTyping }}>
       {children}
     </SoundContext.Provider>
   )
