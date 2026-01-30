@@ -1,6 +1,10 @@
+import { Volume2, VolumeX } from 'lucide-react'
 import { ThemePicker } from '../UI/ThemePicker'
+import { useSound } from '../../context/SoundContext'
 
 export function TerminalHeader() {
+  const { isMuted, toggleMute } = useSound()
+
   return (
     <header className="flex items-center justify-between px-3 sm:px-4 py-2 sm:py-3 bg-[var(--bg-secondary)] border-b border-[var(--border)] rounded-t-lg">
       {/* Window buttons */}
@@ -15,8 +19,18 @@ export function TerminalHeader() {
         rupayan@portfolio:~
       </span>
 
-      {/* Theme picker */}
-      <ThemePicker />
+      {/* Controls */}
+      <div className="flex items-center gap-2">
+        <button
+          onClick={toggleMute}
+          className="p-1.5 rounded-md hover:bg-[var(--bg)] transition-colors text-[var(--text-dim)] hover:text-[var(--text)]"
+          aria-label={isMuted ? 'Unmute sounds' : 'Mute sounds'}
+          title={isMuted ? 'Unmute sounds' : 'Mute sounds'}
+        >
+          {isMuted ? <VolumeX size={16} /> : <Volume2 size={16} />}
+        </button>
+        <ThemePicker />
+      </div>
     </header>
   )
 }

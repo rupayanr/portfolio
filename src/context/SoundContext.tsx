@@ -19,6 +19,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   const typingAudioRef = useRef<HTMLAudioElement | null>(null)
   const ambientAudioRef = useRef<HTMLAudioElement | null>(null)
   const prefersReducedMotion = useRef(false)
+  const hasInteracted = useRef(false)
 
   useEffect(() => {
     // Check for reduced motion preference
@@ -42,7 +43,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     typingAudioRef.current.volume = 0.3
 
     ambientAudioRef.current = new Audio('/sounds/ambient.mp3')
-    ambientAudioRef.current.volume = 0.1
+    ambientAudioRef.current.volume = 0.15
     ambientAudioRef.current.loop = true
 
     return () => {
@@ -54,6 +55,32 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  // Start ambient sound on first user interaction
+  useEffect(() => {
+    const startAmbient = () => {
+      if (hasInteracted.current) return
+      hasInteracted.current = true
+
+      if (!isMuted && !prefersReducedMotion.current && ambientAudioRef.current) {
+        ambientAudioRef.current.play().catch(() => {
+          // Autoplay blocked - browser policy
+        })
+      }
+
+      // Remove listeners after first interaction
+      document.removeEventListener('click', startAmbient)
+      document.removeEventListener('keydown', startAmbient)
+    }
+
+    document.addEventListener('click', startAmbient)
+    document.addEventListener('keydown', startAmbient)
+
+    return () => {
+      document.removeEventListener('click', startAmbient)
+      document.removeEventListener('keydown', startAmbient)
+    }
+  }, [isMuted])
+
   useEffect(() => {
     localStorage.setItem('soundMuted', String(isMuted))
 
@@ -62,18 +89,11 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     if (ambientAudioRef.current) {
       if (isMuted) {
         ambientAudioRef.current.pause()
-      } else {
-        // Only play ambient if user has interacted with the page
-        const playAmbient = () => {
-          if (!isMuted && ambientAudioRef.current) {
-            ambientAudioRef.current.play().catch(() => {
-              // Autoplay blocked - that's fine, we'll try again on next interaction
-            })
-          }
-        }
-
-        // Try to play immediately, or wait for interaction
-        playAmbient()
+      } else if (hasInteracted.current) {
+        // Only play if user has already interacted
+        ambientAudioRef.current.play().catch(() => {
+          // Autoplay blocked
+        })
       }
     }
   }, [isMuted])
