@@ -2,8 +2,11 @@ import { Github, Linkedin, Mail } from 'lucide-react'
 import { BentoCard } from './BentoCard'
 import { ASCII_FULL_NAME, ASCII_INITIALS } from '../../assets/ascii'
 import { copyToClipboard, EMAIL } from '../../utils/clipboard'
+import { useAvailability } from '../../context/AvailabilityContext'
 
 export function HeroCard() {
+  const { statusLabel, statusColor } = useAvailability()
+
   const handleCopyEmail = () => {
     copyToClipboard(EMAIL)
   }
@@ -26,6 +29,16 @@ export function HeroCard() {
       <div className="mt-4 space-y-2">
         <div className="hidden sm:flex items-center gap-2">
           <span className="text-[var(--text)]">Rupayan Roy</span>
+          <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs ${statusColor} bg-[var(--bg)] border border-[var(--border)]`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+            {statusLabel}
+          </span>
+        </div>
+        <div className="sm:hidden flex items-center gap-2 mt-1">
+          <span className={`inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full text-xs ${statusColor} bg-[var(--bg)] border border-[var(--border)]`}>
+            <span className="w-1.5 h-1.5 rounded-full bg-current animate-pulse" />
+            {statusLabel}
+          </span>
         </div>
         <p className="text-[var(--text-dim)]">Senior Software Engineer</p>
         <p className="text-[var(--text-dim)]">6 years building stuff</p>

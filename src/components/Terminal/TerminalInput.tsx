@@ -1,5 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
-import type { KeyboardEvent } from 'react'
+import type { KeyboardEvent, ChangeEvent } from 'react'
+import { useSound } from '../../context/SoundContext'
 
 interface TerminalInputProps {
   onSubmit: (command: string) => void
@@ -11,6 +12,7 @@ interface TerminalInputProps {
 export function TerminalInput({ onSubmit, onHistoryUp, onHistoryDown, onResetHistory }: TerminalInputProps) {
   const [input, setInput] = useState('')
   const inputRef = useRef<HTMLInputElement>(null)
+  const { playTyping } = useSound()
 
   useEffect(() => {
     const handleGlobalKeyDown = (e: globalThis.KeyboardEvent) => {
@@ -51,6 +53,15 @@ export function TerminalInput({ onSubmit, onHistoryUp, onHistoryDown, onResetHis
     }
   }
 
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const newValue = e.target.value
+    // Play typing sound only when adding characters
+    if (newValue.length > input.length) {
+      playTyping()
+    }
+    setInput(newValue)
+  }
+
   return (
     <div className="flex items-center gap-2 text-[var(--text)]">
       <span className="text-[var(--accent)]">$</span>
@@ -58,7 +69,7 @@ export function TerminalInput({ onSubmit, onHistoryUp, onHistoryDown, onResetHis
         ref={inputRef}
         type="text"
         value={input}
-        onChange={(e) => setInput(e.target.value)}
+        onChange={handleChange}
         onKeyDown={handleKeyDown}
         inputMode="text"
         autoCapitalize="none"

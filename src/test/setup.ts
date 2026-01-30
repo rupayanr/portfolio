@@ -1,10 +1,19 @@
 import '@testing-library/jest-dom'
 import { vi } from 'vitest'
 
+// Mock localStorage
+const localStorageMock = {
+  getItem: vi.fn(),
+  setItem: vi.fn(),
+  removeItem: vi.fn(),
+  clear: vi.fn(),
+}
+Object.defineProperty(window, 'localStorage', { value: localStorageMock })
+
 // Mock matchMedia
 Object.defineProperty(window, 'matchMedia', {
   writable: true,
-  value: vi.fn().mockImplementation((query: string) => ({
+  value: vi.fn().mockImplementation(query => ({
     matches: false,
     media: query,
     onchange: null,
@@ -16,13 +25,29 @@ Object.defineProperty(window, 'matchMedia', {
   })),
 })
 
+// Mock Audio - use a function to avoid infinite recursion
+function createMockAudio() {
+  return {
+    src: '',
+    volume: 1,
+    loop: false,
+    paused: true,
+    playbackRate: 1,
+    play: vi.fn().mockResolvedValue(undefined),
+    pause: vi.fn(),
+    cloneNode: vi.fn().mockImplementation(() => createMockAudio()),
+  }
+}
+
+window.Audio = vi.fn().mockImplementation(() => createMockAudio()) as unknown as typeof Audio
+
 // Mock scrollIntoView
 Element.prototype.scrollIntoView = vi.fn()
 
-// Mock clipboard
-Object.assign(navigator, {
-  clipboard: {
-    writeText: vi.fn().mockResolvedValue(undefined),
-    readText: vi.fn().mockResolvedValue(''),
-  },
+// Reset mocks between tests
+beforeEach(() => {
+  vi.clearAllMocks()
+  localStorageMock.getItem.mockReturnValue(null)
 })
+
+export { localStorageMock }

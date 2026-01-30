@@ -1,7 +1,10 @@
 import { useCallback } from 'react'
 import { useTheme } from '../context/ThemeContext'
+import { useAvailability } from '../context/AvailabilityContext'
+import { useSound } from '../context/SoundContext'
 import { themes } from '../themes'
 import { skillNames } from '../data/skills'
+import { experiences } from '../data/experience'
 import { commandList } from '../data/commands'
 import { copyToClipboard, downloadResume, EMAIL } from '../utils/clipboard'
 import type { CommandOutput } from '../types'
@@ -14,6 +17,8 @@ interface UseCommandsProps {
 
 export function useCommands({ addOutput, clearOutputs, addToast }: UseCommandsProps) {
   const { theme, setTheme } = useTheme()
+  const { status, setStatus, statusLabel, statusColor } = useAvailability()
+  const { isMuted, setMuted } = useSound()
 
   const generateId = () => Math.random().toString(36).substring(2, 9)
 
@@ -93,6 +98,178 @@ export function useCommands({ addOutput, clearOutputs, addToast }: UseCommandsPr
       return
     }
 
+    // Cat about.txt command
+    if (trimmed === 'cat about.txt' || trimmed === 'cat about') {
+      addOutput({
+        id: generateId(),
+        command: input,
+        output: (
+          <div className="space-y-4">
+            <div>
+              <p className="text-[var(--accent)] font-bold">## About</p>
+              <p className="text-[var(--text-dim)] mt-1">
+                I'm Rupayan Roy, a Senior Software Engineer with 6+ years of experience
+                building products that people actually use. I specialize in full-stack
+                development, distributed systems, and making complex things simple.
+              </p>
+            </div>
+            <div>
+              <p className="text-[var(--accent)] font-bold">## Journey</p>
+              <p className="text-[var(--text-dim)] mt-1">
+                Started my career at Infosys working on cloud migrations and CI/CD pipelines.
+                Moved to Infineon Technologies to build semiconductor configuration tools
+                and VS Code extensions. Now at MathCo, leading a team of 10 engineers
+                building real-time streaming microservices and voice agents with WebRTC.
+              </p>
+            </div>
+            <div>
+              <p className="text-[var(--accent)] font-bold">## Philosophy</p>
+              <p className="text-[var(--text-dim)] mt-1">
+                I believe in writing code that's easy to delete, not easy to extend.
+                Good software should solve today's problems without creating tomorrow's
+                technical debt. I value simplicity, readability, and shipping over perfection.
+              </p>
+            </div>
+            <div>
+              <p className="text-[var(--accent)] font-bold">## Beyond Code</p>
+              <p className="text-[var(--text-dim)] mt-1">
+                When I'm not at my keyboard, you'll find me exploring new tech,
+                contributing to open source, or brewing the perfect cup of coffee.
+                I'm always up for interesting conversations about tech, startups, or life.
+              </p>
+            </div>
+            <p className="text-[var(--text-dim)] text-sm mt-2">
+              <span className="text-[var(--accent)]">→</span> Type <span className="text-[var(--accent)]">experience</span> to see my work history
+            </p>
+          </div>
+        ),
+        type: 'info',
+      })
+      return
+    }
+
+    // Experience command
+    if (trimmed === 'experience' || trimmed === 'exp') {
+      addOutput({
+        id: generateId(),
+        command: input,
+        output: (
+          <div className="space-y-4">
+            {experiences.map((exp, index) => (
+              <div key={index} className="border-l-2 border-[var(--border)] pl-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                  <p className="text-[var(--accent)] font-bold">{exp.company}</p>
+                  <p className="text-[var(--text-dim)] text-sm">{exp.period}</p>
+                </div>
+                <p className="text-[var(--text)]">{exp.role}</p>
+                <ul className="mt-2 space-y-1">
+                  {exp.highlights.map((highlight, i) => (
+                    <li key={i} className="text-[var(--text-dim)] text-sm">
+                      <span className="text-[var(--accent)]">→</span> {highlight}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        ),
+        type: 'info',
+      })
+      return
+    }
+
+    // Status command
+    if (cmd === 'status') {
+      const newStatus = args[0]
+      if (!newStatus) {
+        addOutput({
+          id: generateId(),
+          command: input,
+          output: (
+            <div className="space-y-1">
+              <p>
+                <span className="text-[var(--text-dim)]">Current status:</span>{' '}
+                <span className={statusColor}>{statusLabel}</span>
+              </p>
+              <p className="text-[var(--text-dim)] mt-2">Usage: status {'<available|busy|away>'}</p>
+            </div>
+          ),
+          type: 'info',
+        })
+      } else if (newStatus === 'available' || newStatus === 'busy' || newStatus === 'away') {
+        setStatus(newStatus)
+        const labels = {
+          available: 'Available for hire',
+          busy: 'Currently busy',
+          away: 'Away',
+        }
+        addOutput({
+          id: generateId(),
+          command: input,
+          output: `✓ Status: ${labels[newStatus]}`,
+          type: 'success',
+        })
+        addToast(`Status: ${labels[newStatus]}`, 'success')
+      } else {
+        addOutput({
+          id: generateId(),
+          command: input,
+          output: `Unknown status: ${newStatus}. Use available, busy, or away.`,
+          type: 'error',
+        })
+      }
+      return
+    }
+
+    // Sound command
+    if (cmd === 'sound') {
+      const action = args[0]
+      if (!action) {
+        addOutput({
+          id: generateId(),
+          command: input,
+          output: (
+            <div className="space-y-1">
+              <p>
+                <span className="text-[var(--text-dim)]">Sound:</span>{' '}
+                <span className={isMuted ? 'text-red-400' : 'text-green-400'}>
+                  {isMuted ? 'off' : 'on'}
+                </span>
+              </p>
+              <p className="text-[var(--text-dim)] mt-2">Usage: sound {'<on|off>'}</p>
+            </div>
+          ),
+          type: 'info',
+        })
+      } else if (action === 'on') {
+        setMuted(false)
+        addOutput({
+          id: generateId(),
+          command: input,
+          output: '✓ Sound: on',
+          type: 'success',
+        })
+        addToast('Sound enabled', 'success')
+      } else if (action === 'off') {
+        setMuted(true)
+        addOutput({
+          id: generateId(),
+          command: input,
+          output: '✓ Sound: off',
+          type: 'success',
+        })
+        addToast('Sound muted', 'success')
+      } else {
+        addOutput({
+          id: generateId(),
+          command: input,
+          output: `Unknown option: ${action}. Use on or off.`,
+          type: 'error',
+        })
+      }
+      return
+    }
+
     // Cat readme easter egg
     if (trimmed === 'cat readme' || trimmed === 'cat readme.md') {
       addOutput({
@@ -130,7 +307,7 @@ export function useCommands({ addOutput, clearOutputs, addToast }: UseCommandsPr
             <p><span className="text-[var(--accent)]">location:</span> Bangalore, India</p>
             <p><span className="text-[var(--accent)]">experience:</span> 6+ years</p>
             <p><span className="text-[var(--accent)]">focus:</span> Full Stack, Distributed Systems</p>
-            <p><span className="text-[var(--accent)]">status:</span> <span className="text-green-400">Available for hire</span></p>
+            <p><span className="text-[var(--accent)]">status:</span> <span className={statusColor}>{statusLabel}</span></p>
             <p><span className="text-[var(--accent)]">email:</span> rupayan.roy16@gmail.com</p>
             <p><span className="text-[var(--accent)]">coffee:</span> mass_consumed</p>
           </div>
@@ -348,7 +525,7 @@ export function useCommands({ addOutput, clearOutputs, addToast }: UseCommandsPr
           type: 'error',
         })
     }
-  }, [addOutput, clearOutputs, addToast, setTheme, theme.id, theme.name])
+  }, [addOutput, clearOutputs, addToast, setTheme, theme.id, theme.name, status, setStatus, statusLabel, statusColor, isMuted, setMuted])
 
   return { executeCommand }
 }
