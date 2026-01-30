@@ -42,8 +42,8 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     typingAudioRef.current = new Audio('/sounds/typing.wav')
     typingAudioRef.current.volume = 0.3
 
-    ambientAudioRef.current = new Audio('/sounds/ambient.mp3')
-    ambientAudioRef.current.volume = 0.15
+    ambientAudioRef.current = new Audio('/sounds/ambient.ogg')
+    ambientAudioRef.current.volume = 0.2
     ambientAudioRef.current.loop = true
 
     return () => {
