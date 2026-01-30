@@ -20,6 +20,12 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   const ambientAudioRef = useRef<HTMLAudioElement | null>(null)
   const prefersReducedMotion = useRef(false)
   const hasInteracted = useRef(false)
+  const isMutedRef = useRef(isMuted)
+
+  // Keep ref in sync with state for use in event handlers
+  useEffect(() => {
+    isMutedRef.current = isMuted
+  }, [isMuted])
 
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
@@ -53,13 +59,17 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
+  // Handle first user interaction to start ambient sound
   useEffect(() => {
     const startAmbient = () => {
       if (hasInteracted.current) return
       hasInteracted.current = true
 
-      if (!isMuted && !prefersReducedMotion.current && ambientAudioRef.current) {
-        ambientAudioRef.current.play().catch(() => {})
+      // Use ref to get current mute state (avoids stale closure)
+      if (!isMutedRef.current && !prefersReducedMotion.current && ambientAudioRef.current) {
+        ambientAudioRef.current.play().catch((err) => {
+          console.warn('Failed to play ambient sound:', err)
+        })
       }
 
       document.removeEventListener('click', startAmbient)
@@ -73,7 +83,7 @@ export function SoundProvider({ children }: { children: ReactNode }) {
       document.removeEventListener('click', startAmbient)
       document.removeEventListener('keydown', startAmbient)
     }
-  }, [isMuted])
+  }, []) // No dependencies - uses refs for current values
 
   useEffect(() => {
     localStorage.setItem('soundMuted', String(isMuted))
@@ -84,7 +94,9 @@ export function SoundProvider({ children }: { children: ReactNode }) {
       if (isMuted) {
         ambientAudioRef.current.pause()
       } else if (hasInteracted.current) {
-        ambientAudioRef.current.play().catch(() => {})
+        ambientAudioRef.current.play().catch((err) => {
+          console.warn('Failed to resume ambient sound:', err)
+        })
       }
     }
   }, [isMuted])
