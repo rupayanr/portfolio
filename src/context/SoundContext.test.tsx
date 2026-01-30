@@ -13,9 +13,14 @@ function createMockAudioInstance() {
     loop: false,
     paused: true,
     playbackRate: 1,
+    preload: 'auto',
+    readyState: 4, // HAVE_ENOUGH_DATA - audio is ready
     play: vi.fn().mockResolvedValue(undefined),
     pause: vi.fn(),
+    load: vi.fn(),
     cloneNode: vi.fn().mockImplementation(() => createMockAudioInstance()),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
   }
 }
 

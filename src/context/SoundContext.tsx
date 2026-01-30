@@ -45,10 +45,16 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     typingAudioRef.current = new Audio('/sounds/typing.wav')
     typingAudioRef.current.volume = 0.3
+    typingAudioRef.current.preload = 'auto'
 
     ambientAudioRef.current = new Audio('/sounds/ambient.ogg')
     ambientAudioRef.current.volume = 0.2
     ambientAudioRef.current.loop = true
+    ambientAudioRef.current.preload = 'auto'
+
+    // Trigger load
+    ambientAudioRef.current.load()
+    typingAudioRef.current.load()
 
     return () => {
       if (ambientAudioRef.current) {
@@ -67,21 +73,37 @@ export function SoundProvider({ children }: { children: ReactNode }) {
 
       // Use ref to get current mute state (avoids stale closure)
       if (!isMutedRef.current && !prefersReducedMotion.current && ambientAudioRef.current) {
-        ambientAudioRef.current.play().catch((err) => {
-          console.warn('Failed to play ambient sound:', err)
-        })
+        // Check if audio is ready, if not wait for it
+        const audio = ambientAudioRef.current
+        if (audio.readyState >= 2) {
+          // HAVE_CURRENT_DATA or higher - can play
+          audio.play().catch((err) => {
+            console.warn('Failed to play ambient sound:', err)
+          })
+        } else {
+          // Wait for audio to be ready
+          const playWhenReady = () => {
+            audio.play().catch((err) => {
+              console.warn('Failed to play ambient sound:', err)
+            })
+            audio.removeEventListener('canplay', playWhenReady)
+          }
+          audio.addEventListener('canplay', playWhenReady)
+        }
       }
 
-      document.removeEventListener('click', startAmbient)
-      document.removeEventListener('keydown', startAmbient)
+      // Use capture:true to remove listeners properly
+      document.removeEventListener('click', startAmbient, true)
+      document.removeEventListener('keydown', startAmbient, true)
     }
 
-    document.addEventListener('click', startAmbient)
-    document.addEventListener('keydown', startAmbient)
+    // Use capture phase to ensure we catch all interactions
+    document.addEventListener('click', startAmbient, true)
+    document.addEventListener('keydown', startAmbient, true)
 
     return () => {
-      document.removeEventListener('click', startAmbient)
-      document.removeEventListener('keydown', startAmbient)
+      document.removeEventListener('click', startAmbient, true)
+      document.removeEventListener('keydown', startAmbient, true)
     }
   }, []) // No dependencies - uses refs for current values
 
