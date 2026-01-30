@@ -1,6 +1,6 @@
 import { Github, Linkedin, Mail } from 'lucide-react'
 import { BentoCard } from './BentoCard'
-import { ASCII_FULL_NAME, ASCII_INITIALS } from '../../assets/ascii'
+import { ASCII_FULL_NAME, ASCII_MOBILE } from '../../assets/ascii'
 import { copyToClipboard, EMAIL } from '../../utils/clipboard'
 
 export function HeroCard() {
@@ -17,11 +17,10 @@ export function HeroCard() {
         {ASCII_FULL_NAME}
       </pre>
 
-      {/* Mobile ASCII - Initials */}
+      {/* Mobile ASCII - Compact Full Name */}
       <pre className="sm:hidden text-[var(--accent)] text-xs leading-tight whitespace-pre">
-        {ASCII_INITIALS}
+        {ASCII_MOBILE}
       </pre>
-      <h1 className="sm:hidden text-xl font-bold mt-2 text-[var(--text)]">Rupayan Roy</h1>
 
       <div className="mt-4 space-y-2">
         <div className="hidden sm:flex items-center gap-2">
