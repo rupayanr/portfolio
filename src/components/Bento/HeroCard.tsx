@@ -24,7 +24,7 @@ export function HeroCard() {
       <h1 className="md:hidden text-xl font-bold mt-2 text-[var(--text)]">Rupayan Roy</h1>
 
       <div className="mt-4 space-y-2">
-        <div className="flex items-center gap-2">
+        <div className="hidden md:flex items-center gap-2">
           <span className="text-[var(--text)]">Rupayan Roy</span>
         </div>
         <p className="text-[var(--text-dim)]">Senior Software Engineer</p>
