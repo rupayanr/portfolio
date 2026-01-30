@@ -10,16 +10,50 @@ interface SoundContextType {
 
 const SoundContext = createContext<SoundContextType | undefined>(undefined)
 
+// Module-level audio instances to survive React StrictMode remounts
+let ambientAudio: HTMLAudioElement | null = null
+let typingAudio: HTMLAudioElement | null = null
+let hasUserInteracted = false
+let interactionListener: (() => void) | null = null
+
+function getOrCreateAudio() {
+  if (!ambientAudio) {
+    ambientAudio = new Audio('/sounds/ambient.ogg')
+    ambientAudio.volume = 0.2
+    ambientAudio.loop = true
+    ambientAudio.preload = 'auto'
+  }
+  if (!typingAudio) {
+    typingAudio = new Audio('/sounds/typing.wav')
+    typingAudio.volume = 0.3
+    typingAudio.preload = 'auto'
+  }
+  return { ambientAudio, typingAudio }
+}
+
+// Reset function for testing
+export function __resetSoundState() {
+  // Remove existing listeners
+  if (interactionListener) {
+    document.removeEventListener('click', interactionListener, true)
+    document.removeEventListener('keydown', interactionListener, true)
+    interactionListener = null
+  }
+  if (ambientAudio) {
+    ambientAudio.pause()
+    ambientAudio = null
+  }
+  typingAudio = null
+  hasUserInteracted = false
+}
+
 export function SoundProvider({ children }: { children: ReactNode }) {
   const [isMuted, setIsMuted] = useState(() => {
     const saved = localStorage.getItem('soundMuted')
     return saved === 'true'
   })
 
-  const typingAudioRef = useRef<HTMLAudioElement | null>(null)
-  const ambientAudioRef = useRef<HTMLAudioElement | null>(null)
   const prefersReducedMotion = useRef(false)
-  const hasInteracted = useRef(false)
   const isMutedRef = useRef(isMuted)
 
   // Keep ref in sync with state for use in event handlers
@@ -27,14 +61,15 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     isMutedRef.current = isMuted
   }, [isMuted])
 
+  // Check reduced motion preference
   useEffect(() => {
     const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)')
     prefersReducedMotion.current = mediaQuery.matches
 
     const handleChange = (e: MediaQueryListEvent) => {
       prefersReducedMotion.current = e.matches
-      if (e.matches && ambientAudioRef.current) {
-        ambientAudioRef.current.pause()
+      if (e.matches && ambientAudio) {
+        ambientAudio.pause()
       }
     }
 
@@ -42,81 +77,48 @@ export function SoundProvider({ children }: { children: ReactNode }) {
     return () => mediaQuery.removeEventListener('change', handleChange)
   }, [])
 
+  // Initialize audio and set up interaction listener
   useEffect(() => {
-    typingAudioRef.current = new Audio('/sounds/typing.wav')
-    typingAudioRef.current.volume = 0.3
-    typingAudioRef.current.preload = 'auto'
+    const { ambientAudio: ambient } = getOrCreateAudio()
 
-    ambientAudioRef.current = new Audio('/sounds/ambient.ogg')
-    ambientAudioRef.current.volume = 0.2
-    ambientAudioRef.current.loop = true
-    ambientAudioRef.current.preload = 'auto'
+    // Only attach listeners once (module-level check)
+    if (!interactionListener) {
+      const tryPlayAmbient = () => {
+        if (hasUserInteracted) return
+        hasUserInteracted = true
 
-    // Trigger load
-    ambientAudioRef.current.load()
-    typingAudioRef.current.load()
+        // Remove listeners after first interaction
+        if (interactionListener) {
+          document.removeEventListener('click', interactionListener, true)
+          document.removeEventListener('keydown', interactionListener, true)
+        }
 
-    return () => {
-      if (ambientAudioRef.current) {
-        ambientAudioRef.current.pause()
-        ambientAudioRef.current = null
-      }
-      typingAudioRef.current = null
-    }
-  }, [])
-
-  // Handle first user interaction to start ambient sound
-  useEffect(() => {
-    const startAmbient = () => {
-      if (hasInteracted.current) return
-      hasInteracted.current = true
-
-      // Use ref to get current mute state (avoids stale closure)
-      if (!isMutedRef.current && !prefersReducedMotion.current && ambientAudioRef.current) {
-        // Check if audio is ready, if not wait for it
-        const audio = ambientAudioRef.current
-        if (audio.readyState >= 2) {
-          // HAVE_CURRENT_DATA or higher - can play
-          audio.play().catch((err) => {
+        if (!isMutedRef.current && !prefersReducedMotion.current && ambient) {
+          ambient.play().catch((err) => {
             console.warn('Failed to play ambient sound:', err)
           })
-        } else {
-          // Wait for audio to be ready
-          const playWhenReady = () => {
-            audio.play().catch((err) => {
-              console.warn('Failed to play ambient sound:', err)
-            })
-            audio.removeEventListener('canplay', playWhenReady)
-          }
-          audio.addEventListener('canplay', playWhenReady)
         }
       }
 
-      // Use capture:true to remove listeners properly
-      document.removeEventListener('click', startAmbient, true)
-      document.removeEventListener('keydown', startAmbient, true)
+      interactionListener = tryPlayAmbient
+      document.addEventListener('click', tryPlayAmbient, true)
+      document.addEventListener('keydown', tryPlayAmbient, true)
     }
 
-    // Use capture phase to ensure we catch all interactions
-    document.addEventListener('click', startAmbient, true)
-    document.addEventListener('keydown', startAmbient, true)
+    // No cleanup - we want audio to persist across StrictMode remounts
+  }, [])
 
-    return () => {
-      document.removeEventListener('click', startAmbient, true)
-      document.removeEventListener('keydown', startAmbient, true)
-    }
-  }, []) // No dependencies - uses refs for current values
-
+  // Handle mute/unmute
   useEffect(() => {
     localStorage.setItem('soundMuted', String(isMuted))
 
     if (prefersReducedMotion.current) return
 
-    if (ambientAudioRef.current) {
+    if (ambientAudio) {
       if (isMuted) {
-        ambientAudioRef.current.pause()
-      } else if (hasInteracted.current) {
-        ambientAudioRef.current.play().catch((err) => {
+        ambientAudio.pause()
+      } else if (hasUserInteracted) {
+        ambientAudio.play().catch((err) => {
           console.warn('Failed to resume ambient sound:', err)
         })
       }
@@ -134,8 +136,9 @@ export function SoundProvider({ children }: { children: ReactNode }) {
   const playTyping = useCallback(() => {
     if (isMuted || prefersReducedMotion.current) return
 
-    if (typingAudioRef.current) {
-      const clone = typingAudioRef.current.cloneNode() as HTMLAudioElement
+    const { typingAudio: typing } = getOrCreateAudio()
+    if (typing) {
+      const clone = typing.cloneNode() as HTMLAudioElement
       clone.volume = 0.2 + Math.random() * 0.1
       clone.playbackRate = 0.9 + Math.random() * 0.2
       clone.play().catch(() => {})

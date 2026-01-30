@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest'
 import { render, screen, act, cleanup } from '@testing-library/react'
-import { SoundProvider, useSound } from './SoundContext'
+import { SoundProvider, useSound, __resetSoundState } from './SoundContext'
 
 // Store mock audio instances to verify calls
 let mockAmbientAudio: ReturnType<typeof createMockAudioInstance>
@@ -32,13 +32,14 @@ beforeEach(() => {
   let callCount = 0
   window.Audio = vi.fn().mockImplementation(() => {
     callCount++
-    // First call is typing audio, second is ambient
-    return callCount === 1 ? mockTypingAudio : mockAmbientAudio
+    // First call is ambient audio, second is typing (matches getOrCreateAudio order)
+    return callCount === 1 ? mockAmbientAudio : mockTypingAudio
   }) as unknown as typeof Audio
 })
 
 afterEach(() => {
   cleanup()
+  __resetSoundState()
 })
 
 // Test component to access context
