@@ -13,7 +13,7 @@ export const projects: Project[] = [
     name: 'resume-roaster',
     description: 'Upload your resume, get brutally honest AI feedback',
     tech: ['React', 'FastAPI', 'Ollama', 'PDF'],
-    url: 'https://resume-roaster.vercel.app',
+    url: 'https://resume-roaster-app.vercel.app',
     github: 'https://github.com/rupayanr/resume-roaster',
     status: 'live',
   },
